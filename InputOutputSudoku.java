@@ -8,6 +8,7 @@ public class InputOutputSudoku {
 	private String nomFichier;
 	private FileReader ois;
     private boolean readSuccess;
+    private boolean isResolved = false;
 	
 	public InputOutputSudoku(String nomFichier) {
 		this.nomFichier = nomFichier;
@@ -38,7 +39,20 @@ public class InputOutputSudoku {
 	public void resoudreGrille() {
 		if (readSuccess) {
 			g.resoudre();
+			isResolved = g.isComplete();
 		}
+	}
+	
+	public boolean isResolved() {
+		return isResolved;
+	}
+
+	public void setResolved(boolean isResolved) {
+		this.isResolved = isResolved;
+	}
+
+	public void affichePossibilites() {
+		System.out.println("************** Grille : "+this.nomFichier +" **************\n" + g);
 	}
 	
 	private void lireFichier() {

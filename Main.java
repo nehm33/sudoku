@@ -6,7 +6,12 @@ public class Main {
 		//InputOutputSudoku ios = new InputOutputSudoku("/user/7/yaoe/Documents/sudoku.txt");
 		System.out.println(ios);
 		ios.resoudreGrille();
-		//System.out.println(ios);
+		if (ios.isResolved()) {
+			System.out.println(ios);
+		}
+		else {
+			ios.affichePossibilites();
+		}
 	}
 
 }
