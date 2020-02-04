@@ -60,8 +60,8 @@ public class CaseOuverte extends Case {
 		for (int i = 1; i < 3; i++) {
 			for (int j = 1; j < 3; j++) {
 				if (i != 0 || j != 0) {
-					voisins.add(this.grille.getGrille()[x/3 + (x%3+i)%3][y/3 + (y%3+j)%3]);
-					voisinsBloc.add(this.grille.getGrille()[x/3 + (x%3+i)%3][y/3 + (y%3+j)%3]);
+					voisins.add(this.grille.getGrille()[x/3*3 + (x%3+i)%3][y/3*3 + (y%3+j)%3]);
+					voisinsBloc.add(this.grille.getGrille()[x/3*3 + (x%3+i)%3][y/3*3 + (y%3+j)%3]);
 				}
 			}
 		}
@@ -113,6 +113,24 @@ public class CaseOuverte extends Case {
 			}
 		}
 		return false;
+	}
+	
+	public String affiche() {
+		String str = "{";
+		for (int i : this.candidats) {
+			str += " "+i;
+		}
+		str += "}";
+		if (y == 0) {
+			str = "|"+str; 
+		}
+		if (y%3 == 2) {
+			str += " |";
+		}
+		if (y == 8) {
+			str += "\n";
+		}
+		return str;
 	}
 	
 }

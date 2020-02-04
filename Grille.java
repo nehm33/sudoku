@@ -23,6 +23,7 @@ public class Grille {
 		this.initCandidats();
 		int candUnique, x, y;
 		CaseOuverte c = this.rechercheCaseUnique();
+		System.out.println(this.affiche());
 		while (c != null) {
 			candUnique = c.getCandidatUnique();
 			x = c.getX();
@@ -30,6 +31,7 @@ public class Grille {
 			c.supprimeCandidatVoisin(candUnique);
 			this.casesOuvertes.remove(c);
 			this.grille[x][y] = new CaseFermee(x, y, candUnique, this);
+			System.out.println(this.affiche());
 			c = this.rechercheCaseUnique();
 		}
 	}
@@ -46,6 +48,21 @@ public class Grille {
 			for (int j = i*3; j < (i+1)*3; j++) {
 				for (Case c: grille[j]) {
 					str += c.toString();
+				}
+			}
+			if (i != 2) {
+				str += "|-------|-------|-------|\n";
+			}
+		}
+		str += "-------------------------\n";
+		return str;
+	}
+	public String affiche() {
+		String str = "-------------------------\n";
+		for (int i = 0; i < 3; i++) {
+			for (int j = i*3; j < (i+1)*3; j++) {
+				for (Case c: grille[j]) {
+					str += c.affiche();
 				}
 			}
 			if (i != 2) {

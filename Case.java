@@ -51,6 +51,8 @@ public abstract class Case {
 		return str;
 	}
 	
-	
+	public String affiche() {
+		return this.toString();
+	}
 
 }
