@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 
 
 public abstract class Case {
@@ -53,6 +56,13 @@ public abstract class Case {
 	
 	public String affiche() {
 		return this.toString();
+	}
+	
+	public void paint(Graphics g, int longueur, int largeur, Font font) {
+		g.setColor(Color.BLACK);
+		g.setFont(font);
+		g.drawRect(x*longueur/9, y*largeur/9, longueur, largeur);
+		g.drawString(""+this.val, x*longueur/9 + longueur/18, y*largeur/9 + largeur/18);
 	}
 
 }

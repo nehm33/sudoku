@@ -1,3 +1,8 @@
+import java.awt.BasicStroke;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +79,27 @@ public class Grille {
 		}
 		str += "-------------------------\n";
 		return str;
+	}
+	
+	public void paint(Graphics g, int longueur, int largeur, Font font) {
+		// Trace des cases
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				this.grille[i][j].paint(g, longueur, largeur, font);
+			}
+		}
+		// Traces des blocs
+		Graphics2D g2D = (Graphics2D) g.create();
+		Stroke stroke2 = new BasicStroke(6f);
+		g2D.setStroke(stroke2);
+		for (int i = 1; i < 3; i++) {
+			g2D.drawLine(i*longueur/3, 0, i*longueur/3, largeur);
+			g2D.drawLine(0, i*largeur/3, longueur, i*largeur/3);
+		}
+		g2D.drawLine(longueur-1, 0, longueur-1, largeur);
+		g2D.drawLine(0, largeur-1, longueur, largeur-1);
+		g2D.drawLine(1, 0, 1, largeur);
+		g2D.drawLine(0, 1, longueur, 1);
 	}
 
 	private void init() {
