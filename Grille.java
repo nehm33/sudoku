@@ -44,8 +44,15 @@ public class Grille {
 	}
 	
 	public void initCaseFermee(int i, int j, int k) {
-		this.casesOuvertes.remove(this.grille[i][j]);
-		this.grille[i][j] = new CaseFermee(i, j ,k, this);
+		if (this.grille[i][j].isOuverte()) {
+			this.casesOuvertes.remove(this.grille[i][j]);
+		}
+		this.grille[i][j] = new CaseFermee(i, j, k, this);
+	}
+	
+	public void ouvrirCaseFermee(int i, int j) {
+		this.grille[i][j] = new CaseOuverte(i, j, this);
+		this.casesOuvertes.add((CaseOuverte) this.grille[i][j]);
 	}
 	
 	@Override
@@ -85,11 +92,13 @@ public class Grille {
 		return str;
 	}
 	
-	public void paint(Graphics g, int longueur, int largeur, Font font, Case caseOn, Case caseClicked) {
+	public void paint(Graphics g, PanneauGrille panGrille) {
+		int longueur = panGrille.getWidth();
+		int largeur = panGrille.getHeight();
 		// Trace des cases
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				this.grille[i][j].paint(g, longueur, largeur, font, caseOn, caseClicked);
+				this.grille[i][j].paint(g, panGrille);
 			}
 		}
 		// Traces des blocs

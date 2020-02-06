@@ -1,24 +1,22 @@
 import java.awt.BorderLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class PanneauFenetre extends Panneau {
 	
 	private PanneauGrille panGrille;
+	private PanneauButtonNumber panButtonNumber;
 
-	public PanneauFenetre(Grille g) {
+	public PanneauFenetre(Grille g, Fenetre f) {
 		super();
 		// Panneau de la grille
 		this.panGrille = new PanneauGrille(g);
 		// Panneau des boutons de nombre
-		Panneau panButtonNumber = new PanneauButtonNumber(0, 9, 10, 10);
+		this.panButtonNumber = new PanneauButtonNumber(0, 10, 10, 10, f);
 		// Panneau des boutons de fonctionnalites
-		JPanel panFonctionnalite = new JPanel();
+		Panneau panFonctionnalite = new PanneauFonctionnalite(2, 0, 10, 10);
 		// Ajout des boutons
-		panFonctionnalite.add(new JButton("Bonjour"));
+		panFonctionnalite.add(f.getResolve());
+		panFonctionnalite.add(f.getReset());
 		// Ajout des panneaux dans celui de la fenetre
 		JPanel panSouth = new JPanel();
 		this.setLayout(new BorderLayout());
@@ -29,6 +27,18 @@ public class PanneauFenetre extends Panneau {
 		this.add(panFonctionnalite, BorderLayout.EAST);
 		this.add(new LabelTitle("Résolveur de sudoku"), BorderLayout.NORTH);
 		this.add(new PanneauVide(), BorderLayout.WEST);
+	}
+
+	public PanneauGrille getPanGrille() {
+		return panGrille;
+	}
+
+	public PanneauButtonNumber getPanButtonNumber() {
+		return panButtonNumber;
+	}
+	
+	public void resetGrille() {
+		this.panGrille.resetGrille();
 	}
 
 }

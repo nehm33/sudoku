@@ -1,6 +1,10 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 
 public abstract class Case {
@@ -58,18 +62,27 @@ public abstract class Case {
 		return this.toString();
 	}
 	
-	public void paint(Graphics g, int longueur, int largeur, Font font, Case caseOn, Case caseClicked) {
+	public void paint(Graphics g, PanneauGrille panGrille) {
+		int longueur = panGrille.getWidth();
+		int largeur = panGrille.getHeight();
 		g.setColor(Color.BLUE);
-		g.setFont(font);
-		if (this == caseClicked) {
+		g.setFont(panGrille.getFont());
+		if (this == panGrille.getCaseClicked()) {
 			g.fillRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
-		} else if (this == caseOn) {
-			g.fillRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
+			
+		} else if (this == panGrille.getCaseOn()) {
+			try {
+				g.drawImage(ImageIO.read(new File("jaune.png")), x*longueur/9, y*largeur/9, longueur/9, largeur/9, panGrille);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} else {
 			g.setColor(Color.BLACK);
 			g.drawRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
 		}
 		g.setColor(Color.BLACK);
-		g.drawString(""+this.val, x*longueur/9 + longueur/18 - 3, y*largeur/9 + largeur/18 +7);
+		if (this.isFermee()) {
+			g.drawString(""+this.val, x*longueur/9 + longueur/18 - 3, y*largeur/9 + largeur/18 +7);
+		}
 	}
 }
