@@ -1,9 +1,9 @@
 import java.awt.Font;
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
 
-public class PanneauGrille extends JPanel {
+
+public class PanneauGrille extends Panneau {
 
 	private Grille grille;
 

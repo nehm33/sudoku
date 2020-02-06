@@ -62,7 +62,7 @@ public abstract class Case {
 		g.setColor(Color.BLACK);
 		g.setFont(font);
 		g.drawRect(x*longueur/9, y*largeur/9, longueur, largeur);
-		g.drawString(""+this.val, x*longueur/9 + longueur/18, y*largeur/9 + largeur/18);
+		g.drawString(""+this.val, x*longueur/9 + longueur/18 - 3, y*largeur/9 + largeur/18 +7);
 	}
 
 }

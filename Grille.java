@@ -21,6 +21,10 @@ public class Grille {
 		return grille;
 	}
 	
+	public Case getElt(int i, int j) {
+		return this.grille[i][j];
+	}
+	
 	public void resoudre() {
 		for (CaseOuverte c : this.casesOuvertes) {
 			c.setVoisin();
