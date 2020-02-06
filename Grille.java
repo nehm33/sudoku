@@ -85,11 +85,11 @@ public class Grille {
 		return str;
 	}
 	
-	public void paint(Graphics g, int longueur, int largeur, Font font) {
+	public void paint(Graphics g, int longueur, int largeur, Font font, Case caseOn, Case caseClicked) {
 		// Trace des cases
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				this.grille[i][j].paint(g, longueur, largeur, font);
+				this.grille[i][j].paint(g, longueur, largeur, font, caseOn, caseClicked);
 			}
 		}
 		// Traces des blocs

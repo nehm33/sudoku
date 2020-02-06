@@ -58,11 +58,18 @@ public abstract class Case {
 		return this.toString();
 	}
 	
-	public void paint(Graphics g, int longueur, int largeur, Font font) {
-		g.setColor(Color.BLACK);
+	public void paint(Graphics g, int longueur, int largeur, Font font, Case caseOn, Case caseClicked) {
+		g.setColor(Color.BLUE);
 		g.setFont(font);
-		g.drawRect(x*longueur/9, y*largeur/9, longueur, largeur);
+		if (this == caseClicked) {
+			g.fillRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
+		} else if (this == caseOn) {
+			g.fillRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
+		} else {
+			g.setColor(Color.BLACK);
+			g.drawRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
+		}
+		g.setColor(Color.BLACK);
 		g.drawString(""+this.val, x*longueur/9 + longueur/18 - 3, y*largeur/9 + largeur/18 +7);
 	}
-
 }
