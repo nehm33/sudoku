@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 
 public class Fenetre extends JFrame implements ActionListener {
 
-	private Grille grille;
 	private PanneauFenetre pan;
 	private Button resolve = new Button("Resoudre", this);
 	private Button reset = new Button("Recommencer", this);
@@ -15,11 +14,8 @@ public class Fenetre extends JFrame implements ActionListener {
 
 	public Fenetre() {
 	  
-	  // Initialisation de la grille
-	  this.grille = new Grille();
-	  
 	  // Panneau de la fenetre
-	  this.pan = new PanneauFenetre(this.grille, this);
+	  this.pan = new PanneauFenetre(this);
 
 	  // Parametre de la fenetre
 	  this.setTitle("Ma première fenêtre Java");
@@ -39,6 +35,11 @@ public class Fenetre extends JFrame implements ActionListener {
   public void go() {
 	  while(true) {
 		  this.getContentPane().repaint();
+		  try {
+			  Thread.sleep(5);
+		  } catch (InterruptedException e) {
+			  e.printStackTrace();
+		  }
 	  }
   }
 
@@ -75,11 +76,10 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.pan.getPanGrille().initCase(9);
 	}
 	if (arg0.getSource()==this.resolve) {
-		this.grille.resoudre();;
+		this.pan.resoudre();
 	}
 	if (arg0.getSource()==this.reset) {
 		this.pan.resetGrille();
-		this.grille = this.pan.getPanGrille().getGrille();
 	}
   }
 

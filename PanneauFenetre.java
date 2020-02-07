@@ -6,10 +6,10 @@ public class PanneauFenetre extends Panneau {
 	private PanneauGrille panGrille;
 	private PanneauButtonNumber panButtonNumber;
 
-	public PanneauFenetre(Grille g, Fenetre f) {
+	public PanneauFenetre(Fenetre f) {
 		super();
 		// Panneau de la grille
-		this.panGrille = new PanneauGrille(g);
+		this.panGrille = new PanneauGrille();
 		// Panneau des boutons de nombre
 		this.panButtonNumber = new PanneauButtonNumber(0, 10, 10, 10, f);
 		// Panneau des boutons de fonctionnalites
@@ -39,6 +39,10 @@ public class PanneauFenetre extends Panneau {
 	
 	public void resetGrille() {
 		this.panGrille.resetGrille();
+	}
+	
+	public void resoudre() {
+		this.panGrille.resoudre();
 	}
 
 }

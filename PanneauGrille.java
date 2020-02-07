@@ -13,9 +13,9 @@ public class PanneauGrille extends Panneau implements MouseMotionListener, Mouse
 	private Case caseClicked;
 	private static Font font = new Font("Courier", Font.BOLD, 20);
 
-	public PanneauGrille(Grille grille) {
+	public PanneauGrille() {
 		super();
-		this.grille = grille;
+		this.grille = new Grille();
 		this.caseOn = null;
 		this.caseClicked = null;
 		this.addMouseMotionListener(this);
@@ -80,10 +80,12 @@ public class PanneauGrille extends Panneau implements MouseMotionListener, Mouse
 	}
 	
 	public void initCase (int val) {
-		if (val == 0) {
-			this.grille.ouvrirCaseFermee(caseClicked.getX(), caseClicked.getY());
-		} else {
-			this.grille.initCaseFermee(caseClicked.getX(), caseClicked.getY(), val);
+		if (caseClicked != null) {
+			if (val == 0) {
+				this.grille.ouvrirCaseFermee(caseClicked.getX(), caseClicked.getY());
+			} else {
+				this.grille.initCaseFermee(caseClicked.getX(), caseClicked.getY(), val);
+			}
 		}
 	}
 
@@ -95,5 +97,7 @@ public class PanneauGrille extends Panneau implements MouseMotionListener, Mouse
 		return grille;
 	}
 	
-	
+	public void resoudre() {
+		this.grille.resoudre();
+	}
 }
