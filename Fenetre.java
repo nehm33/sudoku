@@ -7,8 +7,6 @@ import javax.swing.JFrame;
 public class Fenetre extends JFrame implements ActionListener {
 
 	private PanneauFenetre pan;
-	private Button resolve = new Button("Resoudre", this);
-	private Button reset = new Button("Recommencer", this);
 	private static int longueur = 1000;
 	private static int largeur = 600;
 
@@ -75,22 +73,13 @@ public class Fenetre extends JFrame implements ActionListener {
 	if (arg0.getSource()==this.pan.getPanButtonNumber().getButton(9)) {
 		this.pan.getPanGrille().initCase(9);
 	}
-	if (arg0.getSource()==this.resolve) {
+	if (arg0.getSource()==this.pan.getResolve()) {
 		this.pan.resoudre();
 	}
-	if (arg0.getSource()==this.reset) {
+	if (arg0.getSource()==this.pan.getReset()) {
 		this.pan.resetGrille();
 	}
   }
-
-  public Button getResolve() {
-	  return resolve;
-  }
-
-  public Button getReset() {
-	  return reset;
-  }
-  
   
 
 }
