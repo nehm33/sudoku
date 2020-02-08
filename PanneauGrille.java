@@ -83,8 +83,10 @@ public class PanneauGrille extends Panneau implements MouseMotionListener, Mouse
 		if (caseClicked != null) {
 			if (val == 0) {
 				this.grille.ouvrirCaseFermee(caseClicked.getX(), caseClicked.getY());
+				caseClicked = this.grille.getElt(caseClicked.getX(), caseClicked.getY());
 			} else {
 				this.grille.initCaseFermee(caseClicked.getX(), caseClicked.getY(), val);
+				caseClicked = this.grille.getElt(caseClicked.getX(), caseClicked.getY());
 			}
 		}
 	}

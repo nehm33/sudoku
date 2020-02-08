@@ -18,5 +18,11 @@ public class PanneauButtonNumber extends PanneauGridLayout {
 	public JButton getButton(int i) {
 		return this.boutons[i];
 	}
+	
+	public void setEnabled(boolean enabled) {
+		for (JButton b : this.boutons) {
+			b.setEnabled(enabled);
+		}
+	}
 
 }

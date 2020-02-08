@@ -75,9 +75,15 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	if (arg0.getSource()==this.pan.getResolve()) {
 		this.pan.resoudre();
+		this.pan.getPanButtonNumber().setEnabled(false);
+		this.pan.getReset().setEnabled(true);
+		this.pan.getResolve().setEnabled(false);
 	}
 	if (arg0.getSource()==this.pan.getReset()) {
 		this.pan.resetGrille();
+		this.pan.getPanButtonNumber().setEnabled(true);
+		this.pan.getReset().setEnabled(false);
+		this.pan.getResolve().setEnabled(true);
 	}
   }
   

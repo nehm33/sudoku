@@ -13,6 +13,7 @@ public class PanneauFenetre extends Panneau {
 		// Mise en place des boutons
 		this.resolve = new Button("Resoudre", f);
 		this.reset = new Button("Recommencer", f);
+		this.reset.setEnabled(false);
 		// Panneau de la grille
 		this.panGrille = new PanneauGrille();
 		// Panneau des boutons de nombre
