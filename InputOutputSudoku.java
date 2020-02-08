@@ -52,7 +52,7 @@ public class InputOutputSudoku {
 	}
 
 	public void affichePossibilites() {
-		System.out.println("************** Grille : "+this.nomFichier +" **************\n" + g);
+		System.out.println("************** Grille : "+this.nomFichier +" **************\n" + g.affiche());
 	}
 	
 	private void lireFichier() {

@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaseOuverte extends Case {
-	
+public class CaseOuverte extends Case implements Comparable<CaseOuverte> {
+
 	private List<Integer> candidats; 
 	private ArrayList<Case> voisins;
 	private ArrayList<Case> voisinsLigne;
@@ -23,6 +23,10 @@ public class CaseOuverte extends Case {
 		return voisins;
 	}
 	
+	public List<Integer> getCandidats() {
+		return candidats;
+	}
+
 	public boolean appartient(int d) {
 		return candidats.contains(d);
 	}
@@ -81,7 +85,7 @@ public class CaseOuverte extends Case {
 	}
 	
 	public String affiche() {
-		String str = "{";
+		String str = " {";
 		for (int i : this.candidats) {
 			str += " "+i;
 		}
@@ -96,6 +100,15 @@ public class CaseOuverte extends Case {
 			str += "\n";
 		}
 		return str;
+	}
+	
+	@Override
+	public int compareTo(CaseOuverte arg0) {
+		int comp = this.candidats.size()-arg0.candidats.size();
+		if (comp == 0) {
+			return this.hashCode() - arg0.hashCode();
+		}
+		return comp;
 	}
 	
 	private void initCandidats() {

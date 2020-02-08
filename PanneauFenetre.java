@@ -27,7 +27,10 @@ public class PanneauFenetre extends Panneau {
 		this.setLayout(new BorderLayout());
 		this.add(panGrille, BorderLayout.CENTER);
 		panSouth.add(new PanneauVide(), BorderLayout.NORTH);
-		panSouth.add(panButtonNumber, BorderLayout.SOUTH);
+		panSouth.add(panButtonNumber, BorderLayout.CENTER);
+		panSouth.add(new PanneauVide(), BorderLayout.EAST);
+		panSouth.add(new PanneauVide(), BorderLayout.WEST);
+		panSouth.add(new PanneauVide(), BorderLayout.SOUTH);
 		this.add(panSouth, BorderLayout.SOUTH);
 		this.add(panFonctionnalite, BorderLayout.EAST);
 		this.add(new LabelTitle("Résolveur de sudoku"), BorderLayout.NORTH);
