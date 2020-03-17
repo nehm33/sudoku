@@ -95,22 +95,27 @@ public abstract class Case {
 		int largeur = panGrille.getHeight();
 		g.setColor(Color.BLUE);
 		g.setFont(panGrille.getFont());
-		if (this == panGrille.getCaseClicked()) {
-			g.fillRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
-			
-		} else if (this == panGrille.getCaseOn()) {
-			try {
-				g.drawImage(ImageIO.read(new File("jaune.png")), x*longueur/9, y*largeur/9, longueur/9, largeur/9, panGrille);
-			} catch (IOException e) {
-				e.printStackTrace();
+		if (this.grille.isGrilleCorrecte()) {
+			if (this == panGrille.getCaseClicked()) {
+				g.fillRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
+				
+			} else if (this == panGrille.getCaseOn()) {
+				try {
+					g.drawImage(ImageIO.read(new File("jaune.png")), x*longueur/9, y*largeur/9, longueur/9, largeur/9, panGrille);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				g.setColor(Color.BLACK);
+				g.drawRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
+			}
+			g.setColor(Color.BLACK);
+			if (this.isFermee()) {
+				g.drawString(""+this.val, x*longueur/9 + longueur/18 - 3, y*largeur/9 + largeur/18 +7);
 			}
 		} else {
 			g.setColor(Color.BLACK);
 			g.drawRect(x*longueur/9, y*largeur/9, longueur/9, largeur/9);
-		}
-		g.setColor(Color.BLACK);
-		if (this.isFermee()) {
-			g.drawString(""+this.val, x*longueur/9 + longueur/18 - 3, y*largeur/9 + largeur/18 +7);
 		}
 	}
 }

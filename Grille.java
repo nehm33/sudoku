@@ -1,4 +1,5 @@
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -12,6 +13,7 @@ public class Grille {
 	private Case[][] grille;
 	private List<CaseOuverte> casesOuvertes;
 	private TreeSet<CaseOuverte> casesOuvertesTriees;
+	private boolean grilleCorrecte = true;
 	
 	public Grille() {
 		this.grille = new Case[9][9];
@@ -27,25 +29,38 @@ public class Grille {
 		return this.grille[i][j];
 	}
 	
+	public boolean isGrilleCorrecte() {
+		return grilleCorrecte;
+	}
+
+	public void setGrilleCorrecte(boolean grilleCorrecte) {
+		this.grilleCorrecte = grilleCorrecte;
+	}
+
 	public void resoudre() {
-		for (CaseOuverte c : this.casesOuvertes) {
-			c.setVoisin();
+		if (this.isValid()) {
+			for (CaseOuverte c : this.casesOuvertes) {
+				c.setVoisin();
+			}
+			this.initCandidats();
+			int candUnique, x, y;
+			CaseOuverte c = this.rechercheCaseUnique();
+			while (c != null) {
+				candUnique = c.getCandidatUnique();
+				x = c.getX();
+				y = c.getY();
+				c.supprimeCandidatVoisin(candUnique);
+				this.casesOuvertes.remove(c);
+				this.grille[x][y] = new CaseFermee(x, y, candUnique, this);
+				c = this.rechercheCaseUnique();
+			}
+			if (!this.isComplete()) {
+				this.completer();
+			}
+		} else {
+			this.setGrilleCorrecte(false);
 		}
-		this.initCandidats();
-		int candUnique, x, y;
-		CaseOuverte c = this.rechercheCaseUnique();
-		while (c != null) {
-			candUnique = c.getCandidatUnique();
-			x = c.getX();
-			y = c.getY();
-			c.supprimeCandidatVoisin(candUnique);
-			this.casesOuvertes.remove(c);
-			this.grille[x][y] = new CaseFermee(x, y, candUnique, this);
-			c = this.rechercheCaseUnique();
-		}
-		if (!this.isComplete()) {
-			this.completer();
-		}
+		
 	}
 	
 	public void completer() {
@@ -103,6 +118,10 @@ public class Grille {
 		return this.casesOuvertes.isEmpty();
 	}
 	
+	public boolean isValid() {
+		return this.verifyLines()&&this.verifyColumns()&&this.verifyBlocks();
+	}
+	
 	public String affiche() {
 		String str = "-------------------------\n";
 		for (int i = 0; i < 3; i++) {
@@ -140,6 +159,11 @@ public class Grille {
 		g2D.drawLine(0, largeur-1, longueur, largeur-1);
 		g2D.drawLine(1, 0, 1, largeur);
 		g2D.drawLine(0, 1, longueur, 1);
+		
+		if (!this.isGrilleCorrecte()) {
+			g.setColor(Color.RED);
+			g.drawString("GRILLE INVALIDE", longueur/3+50, largeur/2);
+		}
 	}
 	
 	private Grille(Grille g) {
@@ -194,5 +218,77 @@ public class Grille {
 		}
 		return null;
 	}
+	
+	private boolean verifyLines() {
+		for (int i=0; i<9; i++) {
+			if (!isLineValid(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean verifyColumns() {
+		for (int i=0; i<9; i++) {
+			if (!isColumnValid(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean verifyBlocks() {
+		for (int i=0; i<9; i++) {
+			if (!isBlockValid(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean isLineValid(int i) {
+		List<Integer> entiersUtilises = new ArrayList<Integer>();
+		for (int k=0; k < 9; k++) {
+			int val = this.grille[i][k].getVal();
+			if (val != 0) {
+				if (entiersUtilises.contains(val)) {
+					return false;
+				}
+				entiersUtilises.add(val);
+			}
+		}
+		return true;
+	}
 
+	private boolean isColumnValid(int j) {
+		List<Integer> entiersUtilises = new ArrayList<Integer>();
+		for (int k=0; k < 9; k++) {
+			int val = this.grille[k][j].getVal();
+			if (val != 0) {
+				if (entiersUtilises.contains(val)) {
+					return false;
+				}
+				entiersUtilises.add(val);
+			}
+		}
+		return true;
+	}
+	
+	private boolean isBlockValid(int n) {
+		List<Integer> entiersUtilises = new ArrayList<Integer>();
+		int x = n/3*3;
+		int y = n%3*3;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				int val = this.grille[x+i][y+j].getVal();
+				if (val != 0) {
+					if (entiersUtilises.contains(val)) {
+						return false;
+					}
+					entiersUtilises.add(val);
+				}
+			}
+		}
+		return true;
+	}
 }
